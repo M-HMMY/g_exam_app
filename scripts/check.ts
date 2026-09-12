@@ -562,7 +562,9 @@ for (const q of QUESTIONS) {
   {
     const found: string[] = [];
     for (const q of own) {
-      if (/本文|教本|この節/.test(q.question)) {
+      // 「本文」だけで見ると、文字列照合の「本文（探索される側の文字列）」まで
+      // 拾ってしまう。記載を指す動詞と組になっているときだけ数える。
+      if (/(本文|教本|この節)(で|に)(挙げ|述べ|示さ|説明さ|書か)/.test(q.question)) {
         found.push(`問題 ${q.id}: 設問が教本の記載そのものを指している（「${q.question.slice(0, 24)}…」）`);
       }
     }
