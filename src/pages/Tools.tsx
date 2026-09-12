@@ -28,7 +28,13 @@ const GROUPS: { name: string; note: string; ids: string[] }[] = [
 ];
 
 export function Tools(): JSX.Element {
-  const [openGroup, setOpenGroup] = useState<string>(GROUPS[0].name);
+  // GROUPS には、これから作るぶんも含めてウィジェットの id を並べてある。
+  // そのため先頭のグループが 1 つも実装されていないことがあり、既定で開くと
+  // 「この分類のツールはまだ用意されていません」だけの画面になる。
+  // 実際にブラウザで開いて見つけた（先頭の「数と確率」が 0 個だった）。
+  // 中身のあるグループを初期表示にする。
+  const firstFilled = GROUPS.find((g) => g.ids.some((id) => widgetIds.includes(id))) ?? GROUPS[0];
+  const [openGroup, setOpenGroup] = useState<string>(firstFilled.name);
   const known = new Set(GROUPS.flatMap((g) => g.ids));
   const others = widgetIds.filter((id) => !known.has(id));
 
