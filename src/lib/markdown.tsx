@@ -275,6 +275,14 @@ export function Markdown({ source }: { source: string }): JSX.Element {
       buf.push(lines[i]);
       i++;
     }
+    // `|` で始まるのに表にならなかった行（区切り行がない、単独の `|` など）は、
+    // 上のどの分岐にも当たらず、この while も 1 行目で止まるため i が進まない。
+    // すると外側のループが同じ行を延々と処理し続けて固まる（実際に起きた）。
+    // 最後の砦として、1 行も取れなかったときは強制的に 1 行進める。
+    if (buf.length === 0) {
+      buf.push(lines[i]);
+      i++;
+    }
     out.push(<p key={k()}>{inline(buf.join(' '), k())}</p>);
   }
 
