@@ -70,21 +70,23 @@ export function Practice(): JSX.Element {
     [],
   );
 
+  // actions.answer を setSession の更新関数の中で呼んではいけない。
+  // 更新関数はレンダリング中に実行されるうえ、StrictMode では 2 回呼ばれるため、
+  // 学習記録が二重に登録されて成績分析と復習キューが狂う（実際に起きた）。
+  // 記録は更新関数の外で 1 回だけ行う。Review.tsx / Mock.tsx も同じ形。
   const submit = useCallback(() => {
-    setSession((s) => {
-      if (s === null || s.revealed || s.selected === null) return s;
-      const q = s.queue[s.idx];
-      if (!q) return s;
-      const correct = s.selected === q.answer;
-      actions.answer({ qid: q.id, categoryId: q.categoryId, correct, mode: section ? 'check' : 'practice' });
-      return {
-        ...s,
-        revealed: true,
-        correctCount: s.correctCount + (correct ? 1 : 0),
-        missed: correct ? s.missed : [...s.missed, q],
-      };
+    if (session === null || session.revealed || session.selected === null) return;
+    const q = session.queue[session.idx];
+    if (!q) return;
+    const correct = session.selected === q.answer;
+    actions.answer({ qid: q.id, categoryId: q.categoryId, correct, mode: section ? 'check' : 'practice' });
+    setSession({
+      ...session,
+      revealed: true,
+      correctCount: session.correctCount + (correct ? 1 : 0),
+      missed: correct ? session.missed : [...session.missed, q],
     });
-  }, [section]);
+  }, [session, section]);
 
   const next = useCallback(() => {
     setSession((s) => (s === null ? s : { ...s, idx: s.idx + 1, selected: null, revealed: false }));
