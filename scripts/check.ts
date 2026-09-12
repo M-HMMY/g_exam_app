@@ -544,7 +544,8 @@ for (const q of QUESTIONS) {
   // 「すべて」は数え方が難しい。「すべてのデータ点から距離を測る」のような
   // ただの記述まで拾ってしまうので、断定を強める語だけを見る。
   {
-    const absolute = /必ず|常に|まったく|全く|一切|絶対|例外なく|いかなる場合|どのような場合|どんな場合|一律|あらゆる/;
+    // 「常に」は部分一致だと「非常に」「通常に」まで拾ってしまうので、直前の字で除く。
+    const absolute = /必ず|(?<![非通日])常に|まったく|全く|一切|絶対|例外なく|いかなる場合|どのような場合|どんな場合|一律|あらゆる/;
     const found: string[] = [];
     for (const q of own) {
       const wrong = q.choices.filter((_, i) => i !== q.answer).filter((c) => absolute.test(c)).length;
