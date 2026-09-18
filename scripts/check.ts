@@ -5,6 +5,7 @@
  * ここで機械的に潰しておくと、あとから「なぜか画面に出ない」を探さずに済む。
  * 新しい不整合の型を見つけたら、直すついでにこのファイルへ検査を足すこと。
  */
+import { readFileSync } from 'node:fs';
 import { CATEGORIES } from '../src/data/categories';
 import { SECTIONS } from '../src/data/textbook';
 import { QUESTIONS } from '../src/data/questions';
@@ -593,6 +594,51 @@ if (emptyChapters.length > 0) {
 }
 
 console.log('');
+
+// ---- 姉妹アプリと共有する入れ物に、アプリ固有の名前が付いているか ----
+//
+// **localStorage も Cache Storage もオリジン単位**なので、
+// github.io に姉妹アプリを並べると 1 つの入れ物を共有する。
+//   - localStorage のキーがぶつかれば、学習記録が混ざる
+//   - サービスワーカーの activate が「自分以外」を消せば、隣のキャッシュまで巻き添えになる
+//
+// **★ 実際に起きていた**（2026 年 9 月 19 日に発見）。
+// このアプリを含む 5 本が activate で「自分以外を全部消す」形になっていて、
+// **開くたびに姉妹アプリのオフラインキャッシュを消していた。**
+// 型でもビルドでも止まらず、8 本を並べて見比べて初めて分かった。
+//
+// 接頭辞は**いま使っているものを動かさない**こと。付け替えると、
+// すでに配布したキャッシュを一度捨てることになる。
+{
+  const OWN_PREFIX = 'g-exam-app-';
+  try {
+    const sw = readFileSync('public/sw.js', 'utf8');
+    const m = sw.match(/const CACHE_PREFIX = '([^']*)'/);
+    if (!m) {
+      err('public/sw.js: CACHE_PREFIX がありません。キャッシュ名がオリジンの中でアプリ固有になっていません');
+    } else if (m[1] !== OWN_PREFIX) {
+      err(`public/sw.js: CACHE_PREFIX が ${m[1]}。このアプリの接頭辞は ${OWN_PREFIX} です`);
+    }
+    if (!/startsWith\(CACHE_PREFIX\)/.test(sw)) {
+      err(
+        'public/sw.js: activate が startsWith(CACHE_PREFIX) で絞っていません。' +
+          'オリジンを共有する姉妹アプリのキャッシュまで消します',
+      );
+    }
+  } catch {
+    /* sw.js が無いなら飛ばす */
+  }
+  try {
+    const st = readFileSync('src/lib/storage.ts', 'utf8');
+    const m = st.match(/const KEY = '([^']*)'/);
+    if (m && !m[1].startsWith(OWN_PREFIX)) {
+      err(`src/lib/storage.ts: localStorage のキーが ${m[1]}。${OWN_PREFIX} で始めてください`);
+    }
+  } catch {
+    /* storage.ts が無いなら飛ばす */
+  }
+}
+
 if (warnings.length > 0) {
   console.log(`--- 注意 ${warnings.length} 件 ---`);
   warnings.forEach((w) => console.log('  ' + w));
