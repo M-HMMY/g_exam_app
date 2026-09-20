@@ -1,7 +1,7 @@
 # AI の社会実装に向けて（章 ID: `j-social`）の執筆プロンプト
 
 ```bash
-codex exec --cd "C:\Dev\g_exam_app" --sandbox workspace-write --color never \
+codex exec --sandbox workspace-write --color never \
   -o out-10.txt - < scripts/prompts/10-j-social.md
 ```
 

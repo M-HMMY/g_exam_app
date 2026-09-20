@@ -1,7 +1,7 @@
 # 要素技術（1）画像を扱う層（章 ID: `f-layer`）の執筆プロンプト
 
 ```bash
-codex exec --cd "C:\Dev\g_exam_app" --sandbox workspace-write --color never \
+codex exec --sandbox workspace-write --color never \
   -o out-06.txt - < scripts/prompts/06-f-layer.md
 ```
 

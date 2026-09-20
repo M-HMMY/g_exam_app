@@ -1,7 +1,7 @@
 # AI 倫理と AI ガバナンス（章 ID: `l-ethics`）の執筆プロンプト
 
 ```bash
-codex exec --cd "C:\Dev\g_exam_app" --sandbox workspace-write --color never \
+codex exec --sandbox workspace-write --color never \
   -o out-12.txt - < scripts/prompts/12-l-ethics.md
 ```
 

@@ -17,9 +17,13 @@
 ## 使い方
 
 ```bash
-codex exec --cd "C:\Dev\g_exam_app" --sandbox workspace-write --color never \
+codex exec --sandbox workspace-write --color never \
   -o out.txt - < scripts/prompts/03-d-ml.md
 ```
+
+**★ リポジトリの直下で走らせてください。**`--cd` を付けていないので、別の場所から叩くと、そのディレクトリを読みにいきます。
+（公開リポジトリにローカルパスを残さないため、2026 年 9 月 20 日に系譜全体から外しました。）
+
 
 - `--sandbox workspace-write` … このリポジトリの中だけ書き換えを許す
 - `-o out.txt` … **最終メッセージだけ**をファイルに落とす。途中の思考ログを読まずに済むので、依頼した側のコンテキストを食わない

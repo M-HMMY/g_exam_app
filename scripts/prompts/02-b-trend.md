@@ -1,7 +1,7 @@
 # 人工知能をめぐる動向（章 ID: `b-trend`）の執筆プロンプト
 
 ```bash
-codex exec --cd "C:\Dev\g_exam_app" --sandbox workspace-write --color never \
+codex exec --sandbox workspace-write --color never \
   -o out-02.txt - < scripts/prompts/02-b-trend.md
 ```
 

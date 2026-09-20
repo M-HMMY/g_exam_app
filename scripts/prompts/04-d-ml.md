@@ -1,7 +1,7 @@
 # 機械学習の概要（章 ID: `d-ml`）の執筆プロンプト
 
 ```bash
-codex exec --cd "C:\Dev\g_exam_app" --sandbox workspace-write --color never \
+codex exec --sandbox workspace-write --color never \
   -o out-04.txt - < scripts/prompts/04-d-ml.md
 ```
 

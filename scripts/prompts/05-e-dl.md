@@ -1,7 +1,7 @@
 # ディープラーニングの概要（章 ID: `e-dl`）の執筆プロンプト
 
 ```bash
-codex exec --cd "C:\Dev\g_exam_app" --sandbox workspace-write --color never \
+codex exec --sandbox workspace-write --color never \
   -o out-05.txt - < scripts/prompts/05-e-dl.md
 ```
 

@@ -6,7 +6,7 @@
 
 G検定（JDLA Deep Learning for GENERAL）の学習アプリ。**教本を軸にした学習アプリ**であって、問題集アプリではありません。
 
-土台は `fe_exam_app`（基本情報技術者試験）→ `e_exam_app`（E資格）→ `itpassport_exam_app`（ITパスポート）と引き継いできたものです。**コードは `C:\Dev\itpassport_exam_app` から持ってきてください。**系譜のなかでいちばん新しく、検査もいちばん充実しています。画面・記法・運用の作法は共通なので、迷ったら向こうの実装を見れば答えがあります。
+土台は `fe_exam_app`（基本情報技術者試験）→ `e_exam_app`（E資格）→ `itpassport_exam_app`（ITパスポート）と引き継いできたものです。**コードは `itpassport_exam_app` から持ってきてください。**系譜のなかでいちばん新しく、検査もいちばん充実しています。画面・記法・運用の作法は共通なので、迷ったら向こうの実装を見れば答えがあります。
 
 ## 最優先の方針
 
@@ -171,7 +171,7 @@ ITパスポートは「総合 600 点かつ 3 分野それぞれ 300 点」と�
 
 ## 引き継ぐコード
 
-`C:\Dev\itpassport_exam_app` から持ってきます。**中身を見ずにフォルダごとコピーしないでください。**下の 3 分類のうち「直す」に入っているものは、ITパスポートの前提が埋まっています。
+`itpassport_exam_app` から持ってきます。**中身を見ずにフォルダごとコピーしないでください。**下の 3 分類のうち「直す」に入っているものは、ITパスポートの前提が埋まっています。
 
 ### そのまま使えるもの
 
@@ -278,8 +278,12 @@ npm run build
 **Codex CLI を使います**（`npm install -g @openai/codex`、ChatGPT ログイン済み）。姉妹アプリの教本の大半はこれで書きました。
 
 ```bash
-codex exec --cd "C:/Dev/g_exam_app" --sandbox workspace-write --color never -o out.txt - < scripts/prompts/03-xxx.md
+codex exec --sandbox workspace-write --color never -o out.txt - < scripts/prompts/03-xxx.md
 ```
+
+**★ リポジトリの直下で走らせてください。**`--cd` を付けていないので、別の場所から叩くと、そのディレクトリを読みにいきます。
+（公開リポジトリにローカルパスを残さないため、2026 年 9 月 20 日に系譜全体から外しました。）
+
 
 依頼側のコンテキストを食わないよう、`-o` で最終メッセージだけをファイルに落とすのが要点です。実際に使ったプロンプトは `itpassport_exam_app/scripts/prompts/` に全部残っています。**そこの README を読んでひな形にしてください。**何をプロンプトに入れると品質が上がるか（間違えやすい事実の名指し、リンクしてよい節 id の全列挙など）が書いてあります。
 

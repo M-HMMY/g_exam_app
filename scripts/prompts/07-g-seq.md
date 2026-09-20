@@ -1,7 +1,7 @@
 # 要素技術（2）系列・生成・データ拡張（章 ID: `g-seq`）の執筆プロンプト
 
 ```bash
-codex exec --cd "C:\Dev\g_exam_app" --sandbox workspace-write --color never \
+codex exec --sandbox workspace-write --color never \
   -o out-07.txt - < scripts/prompts/07-g-seq.md
 ```
 

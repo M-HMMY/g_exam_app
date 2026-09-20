@@ -1,7 +1,7 @@
 # AI に必要な数理・統計知識（章 ID: `c-math`）の執筆プロンプト
 
 ```bash
-codex exec --cd "C:\Dev\g_exam_app" --sandbox workspace-write --color never \
+codex exec --sandbox workspace-write --color never \
   -o out-03.txt - < scripts/prompts/03-c-math.md
 ```
 

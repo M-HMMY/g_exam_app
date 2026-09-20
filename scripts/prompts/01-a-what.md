@@ -1,7 +1,7 @@
 # 人工知能とは（章 ID: `a-what`）の執筆プロンプト
 
 ```bash
-codex exec --cd "C:\Dev\g_exam_app" --sandbox workspace-write --color never \
+codex exec --sandbox workspace-write --color never \
   -o out-01.txt - < scripts/prompts/01-a-what.md
 ```
 

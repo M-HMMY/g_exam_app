@@ -1,7 +1,7 @@
 # AI に関する法律と契約（章 ID: `k-law`）の執筆プロンプト
 
 ```bash
-codex exec --cd "C:\Dev\g_exam_app" --sandbox workspace-write --color never \
+codex exec --sandbox workspace-write --color never \
   -o out-11.txt - < scripts/prompts/11-k-law.md
 ```
 

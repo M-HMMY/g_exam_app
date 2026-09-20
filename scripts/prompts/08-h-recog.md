@@ -1,7 +1,7 @@
 # 応用例（1）画像・言語・音声（章 ID: `h-recog`）の執筆プロンプト
 
 ```bash
-codex exec --cd "C:\Dev\g_exam_app" --sandbox workspace-write --color never \
+codex exec --sandbox workspace-write --color never \
   -o out-08.txt - < scripts/prompts/08-h-recog.md
 ```
 
